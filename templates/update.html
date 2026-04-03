@@ -9,30 +9,20 @@
 	</div>
 {% endfor %}
 
-{% if name %}
-	<h1>Update User</h1>
-	<br/>
-	<table class="table table-hover table-bordered table-striped">
-	{% for our_user in our_users %}
-	<tr>
-		<td>
-			{{ our_user.id }}.
-			{{ our_user.name }} -
-			{{ our_user.email }} - 
-			{{ our_user.favourite_colour }}
-		</td>
-	</tr>
-	{% endfor %}
-	</table>
+{% if id == current_user.id %}
 
-{% else %}
 	<h1>Update User:</h1>
 	<br/>
+	ID to Update: {{ id }}
+	Current Id: {{ current_user.id }}
 	<div class="shadow p-3 mb-5 bg-body-tertiary rounded">
 	<form action="/update/{{ name_to_update.id }}" method="POST">
 		{{ form.hidden_tag() }}
 		{{ form.name.label(class="form-label") }}
 		{{ form.name(class="form-control", value=name_to_update.name) }}
+		<br/>
+		{{ form.username.label(class="form-label") }}
+		{{ form.username(class="form-control", value=name_to_update.username) }}
 		<br/>
 		{{ form.email.label(class="form-label") }}
 		{{ form.email(class="form-control", value=name_to_update.email) }}
@@ -41,10 +31,20 @@
 		{{ form.favourite_colour(class="form-control", value=name_to_update.favourite_colour) }}
 		<br/>		
 		{{ form.submit(class="btn btn-primary") }}
-		<a href="{{ url_for('delete', id=id)}}" class="btn btn-danger">Delete</a>
+		<a href="{{ url_for('delete', id=current_user.id)}}" class="btn btn-danger">Delete</a>
 	</form>
 	</div>
-<br/>
+	<br/>
+
+{% else %}
+
+	<div class="alert alert-warning alert-dismissible fade show" role="alert">
+		Sorry! You can't edit this user...
+  		<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+	</div>
+
+	<h2>Access Denied!</h2>
 
 {% endif %}
+
 {% endblock %}
