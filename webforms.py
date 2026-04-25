@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
 class PostForm(FlaskForm):
 	title = StringField("Title", validators=[DataRequired()])
 	content = StringField("Content", validators=[DataRequired()], widget=TextArea())
-	author = StringField("Author", validators=[DataRequired()])
+	author = StringField("Author")
 	slug = StringField("Slug", validators=[DataRequired()])
 	submit = SubmitField("Submit")
 
@@ -36,4 +36,9 @@ class PasswordForm(FlaskForm):
 # Create a Form Class
 class NamerForm(FlaskForm):
 	name = StringField("Input your name", validators=[DataRequired()])
+	submit = SubmitField("Submit")
+
+# Create a Search Form
+class SearchForm(FlaskForm):
+	searched = StringField("Searched", validators=[DataRequired()])
 	submit = SubmitField("Submit")
